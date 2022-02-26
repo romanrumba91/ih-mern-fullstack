@@ -4,21 +4,9 @@
 
 exports.getHome = (req, res) => {
 
-	res.render("index")
+	res.json({
+		msg:"Status activo"
+	})
 
 }
 
-exports.getProfile = (req, res) => {
-
-	// console.log(req.session)
-	// const{currentUser} = req.session
-
-	// // SOLUCIÓN 1
-	// const username = currentUser ? currentUser.username : ""
-	// const email = currentUser ? currentUser.email : ""
-	// const msg = currentUser ? currentUser.msg : ""
-
-	res.render("profile")
-
-
-}

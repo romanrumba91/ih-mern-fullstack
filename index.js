@@ -4,38 +4,20 @@
 
 const express		= require("express")
 const app			= express()
-
-const hbs			= require("hbs")
-
 const connectDB		= require("./config/db")
-const sessionManager = require("./config/session")
-
+const cors = require("cors")
 
 // 2. MIDDLEWARES
 require("dotenv").config()
-sessionManager(app)
 connectDB()
+//nos permite hacer peticiones entre diferentes servidores
+app.use(cors())
 
-app.use(express.static("public"))
-app.set("views", __dirname + "/views")
-app.set("view engine", "hbs")
-
-app.use(express.urlencoded({ extended: true }))
-
+app.use(express.json({extended: true}))
 
 // 3. RUTEO
-app.use((req, res, next) => {
-	console.log(req.session.currentUser)
-    //almacenamiento local de express
-    res.locals.currentUser = req.session.currentUser
-    
-
-    next()	
-})
-
+app.use("/api/pets", require("./routes/pets"))
 app.use("/", require("./routes/index"))
-app.use("/auth", require("./routes/auth"))
-
 
 
 // 4. SERVIDOR
